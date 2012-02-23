@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BFEE8BBD-DD1F-4A4A-8042-168D0D771E2F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MetaSearch</RootNamespace>
+    <AssemblyName>MetaSearch</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AsyncCtpLibrary">
+      <HintPath>..\Simpl.Serialization\Lib\AsyncCtpLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MetaSearch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ecologylabGeneratedSemantics\ecologylabGeneratedSemantics.csproj">
+      <Project>{3121E696-14DE-4987-BCED-588E4AB9259F}</Project>
+      <Name>ecologylabGeneratedSemantics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ecologylabSemantics\ecologylabSemantics.csproj">
+      <Project>{3A67F507-1E77-4ED6-BD46-981E66D15F92}</Project>
+      <Name>ecologylabSemantics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Simpl.Fundamental\Simpl.Fundamental.csproj">
+      <Project>{9A755A5E-88AA-4000-A9A7-ABDED3193855}</Project>
+      <Name>Simpl.Fundamental</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Simpl.Serialization\Simpl.Serialization.csproj">
+      <Project>{2B7A3C03-D3F8-485D-9AA1-EDC9AB43E42D}</Project>
+      <Name>Simpl.Serialization</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>echo "ProjectDir:"
+echo "\t$(TargetDir)"
+
+XCOPY "$(SolutionDir)AwesomiumSharp\awesomium\bin\release\icudt42.dll" "$(TargetDir)" /i /y
+XCOPY "$(SolutionDir)AwesomiumSharp\awesomium\bin\release\avcodec-52.dll" "$(TargetDir)" /i /y
+XCOPY "$(SolutionDir)AwesomiumSharp\awesomium\bin\release\avformat-52.dll" "$(TargetDir)" /i /y
+XCOPY "$(SolutionDir)AwesomiumSharp\awesomium\bin\release\avutil-50.dll" "$(TargetDir)" /i /y
+XCOPY "$(SolutionDir)AwesomiumSharp\awesomium\bin\release\Awesomium.dll" "$(TargetDir)" /i /y
+XCOPY "$(SolutionDir)AwesomiumSharp\awesomium\bin\release\AwesomiumProcess.exe" "$(TargetDir)" /i /y
+XCOPY "$(SolutionDir)AwesomiumSharp\awesomium\bin\Release\locales\en-US.dll" "$(TargetDir)locales\" /i /y
+XCOPY "$(SolutionDir)AwesomiumSharp\awesomium\bin\debug\Awesomium_d.dll" "$(TargetDir)" /i /y
+XCOPY "$(SolutionDir)AwesomiumSharp\awesomium\bin\debug\AwesomiumProcess_d.exe" "$(TargetDir)" /i /y
+
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
