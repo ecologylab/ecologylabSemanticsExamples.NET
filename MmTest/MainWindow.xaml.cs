@@ -15,8 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using Awesomium.Core;
-using Awesomium.Windows.Controls;
+
 using Simpl.Fundamental.Net;
 using Simpl.Serialization;
 using ecologylab.semantics.collecting;
