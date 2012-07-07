@@ -22,6 +22,7 @@ using ecologylab.semantics.collecting;
 using ecologylab.semantics.generated.library;
 using ecologylab.semantics.metadata.builtins;
 using ecologylab.semantics.metametadata;
+using ecologylab.semantics.services;
 
 namespace MmTest
 {
@@ -38,13 +39,25 @@ namespace MmTest
 
             BtnGetMetadata.IsEnabled = false;
             Loaded += MainWindow_Loaded;
+
+            //var a = new MetadataServicesClient();
+            //Console.Write("a" + a);
         }
 
         async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _semanticsSessionScope = await SemanticsSessionScope.InitAsync(
+            try
+            {
+                _semanticsSessionScope = await SemanticsSessionScope.InitAsync(
                                             RepositoryMetadataTranslationScope.Get(),
                                             MetaMetadataRepositoryInit.DEFAULT_REPOSITORY_LOCATION);
+            
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exeception: " + ex.StackTrace);
+                
+            }
             
             BtnGetMetadata.IsEnabled = true;
         }
