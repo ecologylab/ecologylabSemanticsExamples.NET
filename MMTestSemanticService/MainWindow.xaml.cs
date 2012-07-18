@@ -30,6 +30,8 @@ namespace MMTestSemanticService
     /// </summary>
     public partial class MainWindow : Window
     {
+        SemanticsSessionScope _semanticsSessionScope; 
+
         MetadataServicesClient metadataServiceClient;
 
         SemanticsGlobalCollection<Document> globalColection; 
@@ -38,11 +40,32 @@ namespace MMTestSemanticService
         {
             InitializeComponent();
 
-            globalColection = new SemanticsGlobalCollection<Document>();
+            BtnGetMetadata.IsEnabled = false;
+            Loaded += MainWindow_Loaded;
+        }
 
-            metadataServiceClient = new MetadataServicesClient(RepositoryMetadataTranslationScope.Get());
+        async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SimplTypesScope _repositoryMetadataTranslationScope = RepositoryMetadataTranslationScope.Get();
 
-            metadataServiceClient.metadataDownloadComplete += MetadataDownloadComplete;
+                _semanticsSessionScope = await SemanticsSessionScope.InitAsync(
+                                            _repositoryMetadataTranslationScope,
+                                            MetaMetadataRepositoryInit.DEFAULT_REPOSITORY_LOCATION);
+
+                metadataServiceClient = new MetadataServicesClient(_repositoryMetadataTranslationScope);
+                metadataServiceClient.metadataDownloadComplete += MetadataDownloadComplete;
+
+                globalColection = new SemanticsGlobalCollection<Document>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exeception: " + ex.StackTrace);
+
+            }
+
+            BtnGetMetadata.IsEnabled = true;
         }
 
         private async void BtnGetMetadata_Click(object sender, RoutedEventArgs e)
@@ -109,7 +132,7 @@ namespace MMTestSemanticService
             else
                 globalColection.Remap(document, args.Metadata);
 
-            // new AmazonProductView((args.Metadata as AmazonProduct));
+             new AmazonProductView((args.Metadata as AmazonProduct));
         }
 
     }
