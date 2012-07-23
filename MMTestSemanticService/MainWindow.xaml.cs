@@ -80,7 +80,7 @@ namespace MMTestSemanticService
                 return;
 
             Console.WriteLine("downloaded metadata: " + args.Metadata.Location);   
-            new AmazonProductView((args.Metadata as AmazonProduct));
+            //new AmazonProductView((args.Metadata as AmazonProduct));
         }
 
     }
