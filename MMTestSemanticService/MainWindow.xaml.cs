@@ -23,6 +23,7 @@ using ecologylab.semantics.services;
 using ecologylab.semantics.generated.library.products;
 using ecologylab.interactive.semantics.View;
 
+
 namespace MMTestSemanticService
 {
     /// <summary>
@@ -79,8 +80,8 @@ namespace MMTestSemanticService
             if (args.Metadata == null)
                 return;
 
-            Console.WriteLine("downloaded metadata: " + args.Metadata.Location);   
-            
+            Console.WriteLine("downloaded metadata: " + args.Metadata.Location);
+            MetadataTitleXMLContainer.Children.Add(new MetadataBrowserEditorView(args.Metadata));
         }
 
     }
