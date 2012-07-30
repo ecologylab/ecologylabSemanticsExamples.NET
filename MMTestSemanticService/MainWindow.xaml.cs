@@ -68,10 +68,21 @@ namespace MMTestSemanticService
         private async void BtnGetMetadata_Click(object sender, RoutedEventArgs e)
         {
             string urls = UrlBox.Text;
+            List<DocumentClosure> documentCollection = new List<DocumentClosure>();
 
             foreach (var url in urls.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
-                metadataServiceClient.GetMetadata(url);
+                Document document = _semanticsSessionScope.GetOrConstructDocument(new ParsedUri(url));
+                DocumentClosure documentClosure = document.GetOrConstructClosure();
+                documentClosure.MetadataServicesClient = metadataServiceClient;
+
+                documentCollection.Add(documentClosure);
+            }
+
+            foreach (var documentClosure in documentCollection)
+            {
+                //documentClosure.addContinuation(this);
+                documentClosure.RequestMetadata();
             }
         }
 
