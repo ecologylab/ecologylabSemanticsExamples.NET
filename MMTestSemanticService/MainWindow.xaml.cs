@@ -33,7 +33,7 @@ namespace MMTestSemanticService
     {
         SemanticsSessionScope _semanticsSessionScope; 
 
-        MetadataServicesClient metadataServiceClient;
+        //MetadataServicesClient metadataServiceClient;
 
         public MainWindow()
         {
@@ -53,8 +53,8 @@ namespace MMTestSemanticService
                                             _repositoryMetadataTranslationScope,
                                             MetaMetadataRepositoryInit.DEFAULT_REPOSITORY_LOCATION);
 
-                metadataServiceClient = new MetadataServicesClient(_repositoryMetadataTranslationScope);
-                metadataServiceClient.metadataDownloadComplete += MetadataDownloadComplete;
+                //metadataServiceClient = new MetadataServicesClient(_repositoryMetadataTranslationScope);
+                //metadataServiceClient.metadataDownloadComplete += MetadataDownloadComplete;
             }
             catch (Exception ex)
             {
@@ -74,7 +74,6 @@ namespace MMTestSemanticService
             {
                 Document document = _semanticsSessionScope.GetOrConstructDocument(new ParsedUri(url));
                 DocumentClosure documentClosure = document.GetOrConstructClosure();
-                documentClosure.MetadataServicesClient = metadataServiceClient;
 
                 documentCollection.Add(documentClosure);
             }
