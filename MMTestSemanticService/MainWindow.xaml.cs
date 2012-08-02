@@ -73,7 +73,7 @@ namespace MMTestSemanticService
             foreach (var url in urls.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 Document document = _semanticsSessionScope.GetOrConstructDocument(new ParsedUri(url));
-                DocumentClosure documentClosure = document.GetOrConstructClosure();
+                DocumentClosure documentClosure = document.GetOrConstructClosure(_semanticsSessionScope.MetadataServicesClient);
 
                 documentCollection.Add(documentClosure);
             }
