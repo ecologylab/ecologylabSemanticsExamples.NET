@@ -31,7 +31,9 @@ namespace MMTestSemanticService
     /// </summary>
     public partial class MainWindow : Window
     {
-        SemanticsSessionScope _semanticsSessionScope; 
+        SemanticsSessionScope _semanticsSessionScope;
+
+        SemanticsGlobalCollection<Document> downloadedDocumentCollection;
 
         //MetadataServicesClient metadataServiceClient;
 
@@ -55,6 +57,7 @@ namespace MMTestSemanticService
 
                 //metadataServiceClient = new MetadataServicesClient(_repositoryMetadataTranslationScope);
                 //metadataServiceClient.metadataDownloadComplete += MetadataDownloadComplete;
+                downloadedDocumentCollection = new SemanticsGlobalCollection<Document>();
             }
             catch (Exception ex)
             {
@@ -73,25 +76,25 @@ namespace MMTestSemanticService
             foreach (var url in urls.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 Document document = _semanticsSessionScope.GetOrConstructDocument(new ParsedUri(url));
-                DocumentClosure documentClosure = document.GetOrConstructClosure(_semanticsSessionScope.MetadataServicesClient);
+                DocumentClosure documentClosure = document.GetOrConstructClosure(_semanticsSessionScope.MetadataServicesClient, downloadedDocumentCollection);
 
                 documentCollection.Add(documentClosure);
             }
 
             foreach (var documentClosure in documentCollection)
             {
-                //documentClosure.addContinuation(this);
-                documentClosure.RequestMetadata();
+                documentClosure.Continuations += this.MetadataDownloadComplete;
+                documentClosure.GetMetadata();
             }
         }
 
-        private void MetadataDownloadComplete(object sender, MetadataServicesClient.MetadataEventArgs args)
+        private void MetadataDownloadComplete(object sender, DocumentClosureEventArgs args)
         {
-            if (args.Metadata == null)
+            if (args.DocumentClosure.Document == null)
                 return;
 
-            Console.WriteLine("downloaded metadata: " + args.Metadata.Location);
-            MetadataTitleXMLContainer.Children.Add(new MetadataBrowserEditorView(args.Metadata));
+            Console.WriteLine("downloaded metadata: " + args.DocumentClosure.Document.Location);
+            MetadataTitleXMLContainer.Children.Add(new MetadataBrowserEditorView(args.DocumentClosure.Document));
         }
 
     }
