@@ -31,11 +31,7 @@ namespace MMTestSemanticService
     /// </summary>
     public partial class MainWindow : Window
     {
-        SemanticsSessionScope _semanticsSessionScope;
-
-        SemanticsGlobalCollection<Document> downloadedDocumentCollection;
-
-        //MetadataServicesClient metadataServiceClient;
+        SemanticsSessionScope semanticsSessionScope;
 
         public MainWindow()
         {
@@ -51,18 +47,13 @@ namespace MMTestSemanticService
             {
                 SimplTypesScope _repositoryMetadataTranslationScope = RepositoryMetadataTranslationScope.Get();
 
-                _semanticsSessionScope = await SemanticsSessionScope.InitAsync(
+                semanticsSessionScope = await SemanticsSessionScope.InitAsync(
                                             _repositoryMetadataTranslationScope,
                                             MetaMetadataRepositoryInit.DEFAULT_REPOSITORY_LOCATION);
-
-                //metadataServiceClient = new MetadataServicesClient(_repositoryMetadataTranslationScope);
-                //metadataServiceClient.metadataDownloadComplete += MetadataDownloadComplete;
-                downloadedDocumentCollection = new SemanticsGlobalCollection<Document>();
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exeception: " + ex.StackTrace);
-
             }
 
             BtnGetMetadata.IsEnabled = true;
@@ -75,8 +66,8 @@ namespace MMTestSemanticService
 
             foreach (var url in urls.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
-                Document document = _semanticsSessionScope.GetOrConstructDocument(new ParsedUri(url));
-                DocumentClosure documentClosure = document.GetOrConstructClosure(_semanticsSessionScope.MetadataServicesClient, downloadedDocumentCollection);
+                Document document = semanticsSessionScope.GetOrConstructDocument(new ParsedUri(url));
+                DocumentClosure documentClosure = document.GetOrConstructClosure(semanticsSessionScope.MetadataServicesClient);
 
                 documentCollection.Add(documentClosure);
             }
