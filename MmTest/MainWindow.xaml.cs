@@ -18,11 +18,11 @@ using System.Windows.Threading;
 
 using Simpl.Fundamental.Net;
 using Simpl.Serialization;
-using ecologylab.semantics.collecting;
-using ecologylab.semantics.generated.library;
-using ecologylab.semantics.metadata.builtins;
-using ecologylab.semantics.metametadata;
-using ecologylab.semantics.services;
+using Ecologylab.Semantics.Collecting;
+using Ecologylab.Semantics.Generated.Library;
+using Ecologylab.Semantics.MetadataNS.Builtins;
+using Ecologylab.Semantics.MetaMetadataNS;
+using Ecologylab.Semantics.Services;
 
 namespace MmTest
 {
@@ -50,7 +50,7 @@ namespace MmTest
             {
                 _semanticsSessionScope = await SemanticsSessionScope.InitAsync(
                                             RepositoryMetadataTranslationScope.Get(),
-                                            MetaMetadataRepositoryInit.DEFAULT_REPOSITORY_LOCATION);
+                                            MetaMetadataRepositoryInit.DefaultRepositoryLocation);
             
             }
             catch (Exception ex)
@@ -65,7 +65,18 @@ namespace MmTest
 
         private async void BtnGetMetadata_Click(object sender, RoutedEventArgs e)
         {
+            //            string serializedMetadata = UrlBox.Text;
+            //            Object o = RepositoryMetadataTranslationScope.Get().Deserialize(serializedMetadata, StringFormat.Xml);
+            //            StringBuilder sb = new StringBuilder();
+            //            SimplTypesScope.Serialize(o, sb, StringFormat.Xml);
+            //            String reserializedMetadatata = sb.ToString();
+            //            Console.WriteLine(reserializedMetadatata);
+            //Expander expander = new Expander();
+            //TextBox metadataXML = new TextBox { TextWrapping = TextWrapping.Wrap, MinHeight = 100 };
+            //metadataXML.Text = reserializedMetadatata;
+
             string urls = UrlBox.Text;
+
             List<Task<Document>> extractionRequests = new List<Task<Document>>();
             Dictionary<ParsedUri, DateTime> timeStamps = new Dictionary<ParsedUri, DateTime>();
             foreach (var s in urls.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
@@ -80,31 +91,31 @@ namespace MmTest
                     //Document doc = await _semanticsSessionScope.GetDocument(puri);
 
                     extractionRequests.Add(t);
-                    
+
                 }
             }
-            
-            while(extractionRequests.Count > 0)
+
+            while (extractionRequests.Count > 0)
             {
-                Task<Document> completedTask = await TaskEx.WhenAny(extractionRequests);
+                Task<Document> completedTask = await Task.WhenAny(extractionRequests);
                 extractionRequests.Remove(completedTask);
 
                 Document parsedDoc = await completedTask;
                 if (parsedDoc == null)
                     continue;
 
-                Expander expander = new Expander { Header = parsedDoc.Title };
+                Expander expander = new Expander {Header = parsedDoc.Title};
                 TextBox metadataXML = new TextBox {TextWrapping = TextWrapping.Wrap, MinHeight = 100};
 
                 var s = timeStamps[parsedDoc.Location.Value];
-                Console.WriteLine(" ---------------------------------- Time to complete: " + DateTime.Now.Subtract(s).TotalMilliseconds);
-                metadataXML.Text = await TaskEx.Run(() => SimplTypesScope.Serialize(parsedDoc, StringFormat.Xml));
+                Console.WriteLine(" ---------------------------------- Time to complete: " +
+                                  DateTime.Now.Subtract(s).TotalMilliseconds);
+                metadataXML.Text = await Task.Run(() => SimplTypesScope.Serialize(parsedDoc, StringFormat.Xml));
 
                 expander.Content = metadataXML;
                 MetadataTitleXMLContainer.Children.Add(expander);
-                
-                
             }
+
         }
     }
 }

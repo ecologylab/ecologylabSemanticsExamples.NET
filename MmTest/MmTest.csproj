@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MmTest</RootNamespace>
     <AssemblyName>MmTest</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -25,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -34,6 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -54,6 +58,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -62,6 +67,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -72,6 +78,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28x64%29|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -81,6 +88,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28x64%29|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -92,6 +100,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28x64%29|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -103,18 +112,9 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncCtpLibrary">
-      <HintPath>..\..\ecologylabFundamental\Simpl.Serialization\Lib\AsyncCtpLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Awesomium.Core">
-      <HintPath>..\ecologylabSemantics\lib\Awesomium\Awesomium.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Awesomium.Windows.Controls">
-      <HintPath>..\ecologylabSemantics\lib\Awesomium\Awesomium.Windows.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -165,6 +165,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -172,21 +173,41 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ecologylabFundamental\Simpl.Fundamental.DotNet\Simpl.Fundamental.DotNet.csproj">
+      <Project>{cab84a50-f2bb-475d-875c-c928c0a206f8}</Project>
+      <Name>Simpl.Fundamental.DotNet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ecologylabFundamental\Simpl.Fundamental\Simpl.Fundamental.csproj">
       <Project>{9A755A5E-88AA-4000-A9A7-ABDED3193855}</Project>
       <Name>Simpl.Fundamental</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ecologylabFundamental\Simpl.OODSS.DotNet\Simpl.OODSS.DotNet.csproj">
+      <Project>{15834bb9-1743-40b3-a2ab-e5ce87fa2753}</Project>
+      <Name>Simpl.OODSS.DotNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ecologylabFundamental\Simpl.OODSS\Simpl.OODSS.csproj">
+      <Project>{4f3bf780-cc24-4eba-9238-5d99b83d1e27}</Project>
+      <Name>Simpl.OODSS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ecologylabFundamental\Simpl.Serialization.DotNet\Simpl.Serialization.DotNet.csproj">
+      <Project>{b3cf19e7-32c1-410a-950d-5b92850854e8}</Project>
+      <Name>Simpl.Serialization.DotNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ecologylabFundamental\Simpl.Serialization\Simpl.Serialization.csproj">
       <Project>{2B7A3C03-D3F8-485D-9AA1-EDC9AB43E42D}</Project>
       <Name>Simpl.Serialization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ecologylabGeneratedSemantics\ecologylabGeneratedSemantics.csproj">
-      <Project>{3121E696-14DE-4987-BCED-588E4AB9259F}</Project>
-      <Name>ecologylabGeneratedSemantics</Name>
+    <ProjectReference Include="..\..\ecologylabGeneratedSemantics\Ecologylab.Semantics.Generated.csproj">
+      <Project>{9161b6f7-0c9f-4d1c-b346-0c47da12c3d1}</Project>
+      <Name>Ecologylab.Semantics.Generated</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ecologylabSemantics\ecologylabSemantics.csproj">
-      <Project>{3A67F507-1E77-4ED6-BD46-981E66D15F92}</Project>
-      <Name>ecologylabSemantics</Name>
+    <ProjectReference Include="..\..\ecologylabSemantics\Ecologylab.Semantics.DotNet\Ecologylab.Semantics.DotNet.csproj">
+      <Project>{07773e05-51d2-4fa1-abcf-cfe76b449175}</Project>
+      <Name>Ecologylab.Semantics.DotNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ecologylabSemantics\Ecologylab.Semantics\Ecologylab.Semantics.csproj">
+      <Project>{baf3d6df-9c6f-4352-a396-c7901954b24c}</Project>
+      <Name>Ecologylab.Semantics</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
